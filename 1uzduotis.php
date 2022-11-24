@@ -17,7 +17,7 @@ function exercises1(array $numbersArray): int
 {
     function evenNumbers(int $numbersArray): int
     {
-        return $numbersArray % 2 === 0;
+        return !($numbersArray & 1);
     }
     return array_sum(array_filter($numbersArray, "evenNumbers"));
 }
