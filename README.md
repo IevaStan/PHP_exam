@@ -1,2 +1,2 @@
 # PHP_exam
-Atlikta 1, 2, 7
+Atlikta 1, 2, 6, 7
