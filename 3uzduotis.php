@@ -45,7 +45,7 @@ $holidays = [
     ],
 ];
 
-function exercises3($holidaysList)
+function exercises3(array $holidaysList): void
 {
     $allHolidays = [];
     for ($i = 0; $i < count($holidaysList); $i++) {
@@ -61,18 +61,17 @@ function exercises3($holidaysList)
                     $holidaySummary['total'] += $holiday['price'] * $holiday['tourists'];
                 }
             }
-            $holidaySummary['titles'] = array_unique($holidaySummary['titles']);
             $holidaySummary['titles'] = implode(", ", $holidaySummary['titles']);
             $allHolidays[] = $holidaySummary;
         };
     };
 
-    function super_unique($array, $key)
+    function super_unique(array $array, mixed $key): array
     {
         $temp_array = [];
-        foreach ($array as &$v) {
-            if (!isset($temp_array[$v[$key]]))
-                $temp_array[$v[$key]] = &$v;
+        foreach ($array as &$element) {
+            if (!isset($temp_array[$element[$key]]))
+                $temp_array[$element[$key]] = &$element;
         }
         $array = array_values($temp_array);
         return $array;
