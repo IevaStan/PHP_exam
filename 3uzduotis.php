@@ -45,30 +45,52 @@ $holidays = [
     ],
 ];
 
-function exercises3($holidays)
+function exercises3($holidaysList)
 {
-    // var_dump($holidays);
-    foreach ($holidays as $trip) {
-        $holidaysSummary =
-            [
-                'title' => null,
-                'destination' => null,
-                'price' => null,
-                'tourists' => null,
+    $allHolidays = [];
+    for ($i = 0; $i < count($holidaysList); $i++) {
+        if (isset($holidaysList[$i]['price'])) {
+            $holidaySummary = [
+                'destination' => $holidaysList[$i]['destination'],
+                'titles' => [$holidaysList[$i]['title']],
+                'total' => $holidaysList[$i]['price'] * $holidaysList[$i]['tourists']
             ];
-        if ($trip["price"] === null) {
-            exit(1);
-        } else {
-            if (!($trip["destination"] == $holidaysSummary["destination"])) {
-                $holidaysSummary[] += $trip;
+            foreach ($holidaysList as $holiday) {
+                if ($holidaySummary['destination'] === $holiday['destination'] && !in_array($holiday['title'], $holidaySummary, true)) {
+                    $holidaySummary['titles'][] = $holiday['title'];
+                    $holidaySummary['total'] += $holiday['price'] * $holiday['tourists'];
+                }
             }
-            // echo "ne null". PHP_EOL;
-            // var_dump($trip);
+
+            $holidaySummary['titles'] = array_unique($holidaySummary['titles']);
+            $holidaySummary['titles'] = implode(", ", $holidaySummary['titles']);
+
+            $allHolidays[] = $holidaySummary;
+        };
+    };
+
+    function super_unique($array, $key)
+    {
+        $temp_array = [];
+        foreach ($array as &$v) {
+            if (!isset($temp_array[$v[$key]]))
+                $temp_array[$v[$key]] = &$v;
         }
+        $array = array_values($temp_array);
+        return $array;
     }
-    var_dump($holidaysSummary);
+
+    $allHolidays = super_unique($allHolidays, 'destination');
+
+    foreach ($allHolidays as $key => $holidays) {
+        echo 'Destination ' . $holidays['destination'] . PHP_EOL;
+        echo 'Titles: ' . $holidays['titles'] . PHP_EOL;
+        echo 'Total: ' . $holidays['total'] . PHP_EOL;
+
+        $array_keys = array_keys($allHolidays);
+        if (end($array_keys) !== $key) {
+            echo '************' . PHP_EOL;
+        }
+    };
 }
-
-
-
-(exercises3($holidays));
+exercises3($holidays);
