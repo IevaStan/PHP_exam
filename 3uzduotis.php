@@ -56,15 +56,13 @@ function exercises3($holidaysList)
                 'total' => $holidaysList[$i]['price'] * $holidaysList[$i]['tourists']
             ];
             foreach ($holidaysList as $holiday) {
-                if ($holidaySummary['destination'] === $holiday['destination'] && !in_array($holiday['title'], $holidaySummary, true)) {
+                if ($holidaySummary['destination'] === $holiday['destination'] && !in_array($holiday['title'], $holidaySummary['titles'], true)) {
                     $holidaySummary['titles'][] = $holiday['title'];
                     $holidaySummary['total'] += $holiday['price'] * $holiday['tourists'];
                 }
             }
-
             $holidaySummary['titles'] = array_unique($holidaySummary['titles']);
             $holidaySummary['titles'] = implode(", ", $holidaySummary['titles']);
-
             $allHolidays[] = $holidaySummary;
         };
     };
