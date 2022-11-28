@@ -45,14 +45,14 @@ $holidays = [
     ],
 ];
 
-function super_unique(array $array, mixed $key): array
+function superUnique(array $array, mixed $key): array
 {
-    $temp_array = [];
+    $tempArray = [];
     foreach ($array as &$element) {
-        if (!isset($temp_array[$element[$key]]))
-            $temp_array[$element[$key]] = &$element;
+        if (!isset($tempArray[$element[$key]]))
+            $tempArray[$element[$key]] = &$element;
     }
-    $array = array_values($temp_array);
+    $array = array_values($tempArray);
     return $array;
 }
 
@@ -77,15 +77,15 @@ function exercises3(array $holidaysList): void
         };
     };
 
-    $allHolidays = super_unique($allHolidays, 'destination');
+    $allHolidays = superUnique($allHolidays, 'destination');
 
     foreach ($allHolidays as $key => $holidays) {
         echo 'Destination ' . '"' . $holidays['destination'] . '"' . PHP_EOL;
         echo 'Titles: ' . $holidays['titles'] . PHP_EOL;
         echo 'Total: ' . $holidays['total'] . PHP_EOL;
 
-        $array_keys = array_keys($allHolidays);
-        if (end($array_keys) !== $key) {
+        $arrayKeys = array_keys($allHolidays);
+        if (end($arrayKeys) !== $key) {
             echo '************' . PHP_EOL;
         }
     };

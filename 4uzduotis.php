@@ -35,14 +35,14 @@ $holidays = [
     ],
 ];
 
-function super_unique(array $array, mixed $key): array
+function superUnique(array $array, mixed $key): array
 {
-    $temp_array = [];
+    $tempArray = [];
     foreach ($array as &$element) {
-        if (!isset($temp_array[$element[$key]]))
-            $temp_array[$element[$key]] = &$element;
+        if (!isset($tempArray[$element[$key]]))
+            $tempArray[$element[$key]] = &$element;
     }
-    $array = array_values($temp_array);
+    $array = array_values($tempArray);
     return $array;
 }
 
@@ -67,7 +67,7 @@ function exercises4(array $holidaysList): void
         };
     };
 
-    $allHolidays = super_unique($allHolidays, 'destination');
+    $allHolidays = superUnique($allHolidays, 'destination');
 
     foreach ($allHolidays as $key => $holidays) {
         $filename = "4uzduotis_atsakymas.txt";
