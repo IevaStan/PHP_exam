@@ -15,10 +15,6 @@ $numbers = [
 
 function exercises1(array $numbersArray): int
 {
-    function evenNumbers(int $numbersArray): int
-    {
-        return !($numbersArray & 1);
-    }
-    return array_sum(array_filter($numbersArray, "evenNumbers"));
+    return array_sum(array_filter($numbersArray, fn ($numbersArray) => !($numbersArray & 1)));
 }
 echo "Paduoto masyvo lyginių skaičių suma lygi " . (exercises1($numbers)) . "." . PHP_EOL;

@@ -35,6 +35,16 @@ $holidays = [
     ],
 ];
 
+function super_unique(array $array, mixed $key): array
+{
+    $temp_array = [];
+    foreach ($array as &$element) {
+        if (!isset($temp_array[$element[$key]]))
+            $temp_array[$element[$key]] = &$element;
+    }
+    $array = array_values($temp_array);
+    return $array;
+}
 
 function exercises4(array $holidaysList): void
 {
@@ -43,12 +53,12 @@ function exercises4(array $holidaysList): void
         if (isset($holidaysList[$i]['price'])) {
             $holidaySummary = [
                 'destination' => $holidaysList[$i]['destination'],
-                'titles' => [$holidaysList[$i]['title']],
+                'titles' => ['"' . $holidaysList[$i]['title'] . '"'],
                 'total' => $holidaysList[$i]['price'] * $holidaysList[$i]['tourists']
             ];
             foreach ($holidaysList as $holiday) {
-                if ($holidaySummary['destination'] === $holiday['destination'] && !in_array($holiday['title'], $holidaySummary['titles'], true)) {
-                    $holidaySummary['titles'][] = $holiday['title'];
+                if ($holidaySummary['destination'] === $holiday['destination'] && !in_array('"' . $holiday['title'] . '"', $holidaySummary['titles'], true)) {
+                    $holidaySummary['titles'][] = '"' . $holiday['title'] . '"';
                     $holidaySummary['total'] += $holiday['price'] * $holiday['tourists'];
                 }
             }
@@ -57,23 +67,12 @@ function exercises4(array $holidaysList): void
         };
     };
 
-    function super_unique(array $array, mixed $key): array
-    {
-        $temp_array = [];
-        foreach ($array as &$element) {
-            if (!isset($temp_array[$element[$key]]))
-                $temp_array[$element[$key]] = &$element;
-        }
-        $array = array_values($temp_array);
-        return $array;
-    }
-
     $allHolidays = super_unique($allHolidays, 'destination');
 
     foreach ($allHolidays as $key => $holidays) {
         $filename = "4uzduotis_atsakymas.txt";
         $file = fopen($filename, "a+") or die("Can not open the file");
-        fwrite($file, 'Destination ' . $holidays['destination'] . PHP_EOL);
+        fwrite($file, 'Destination ' . '"' . $holidays['destination'] . '"' . PHP_EOL);
         fwrite($file, 'Titles: ' . $holidays['titles'] . PHP_EOL);
         fwrite($file, 'Total: ' . $holidays['total']) . PHP_EOL;
         fclose($file);

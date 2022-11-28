@@ -9,15 +9,13 @@ $numbers = [
     [],
 ];
 
-
 function exercises2($numbers)
 {
-    function multiply(int $product, array $numbersArray):int
-    {
-        foreach ($numbersArray as $number)
+    return array_reduce($numbers, function (int $product, array $numbersArray):int {
+        foreach ($numbersArray as $number) {
             $product *= $number;
+        }
         return $product;
-    }
-    return array_reduce($numbers, "multiply", 1);
+    }, 1);
 }
 echo "Paduoto masyvo skaičių sandauga lygi " . (exercises2($numbers)) . "." . PHP_EOL;

@@ -45,6 +45,17 @@ $holidays = [
     ],
 ];
 
+function super_unique(array $array, mixed $key): array
+{
+    $temp_array = [];
+    foreach ($array as &$element) {
+        if (!isset($temp_array[$element[$key]]))
+            $temp_array[$element[$key]] = &$element;
+    }
+    $array = array_values($temp_array);
+    return $array;
+}
+
 function exercises3(array $holidaysList): void
 {
     $allHolidays = [];
@@ -52,12 +63,12 @@ function exercises3(array $holidaysList): void
         if (isset($holidaysList[$i]['price'])) {
             $holidaySummary = [
                 'destination' => $holidaysList[$i]['destination'],
-                'titles' => [$holidaysList[$i]['title']],
+                'titles' => ['"' . $holidaysList[$i]['title'] . '"'],
                 'total' => $holidaysList[$i]['price'] * $holidaysList[$i]['tourists']
             ];
             foreach ($holidaysList as $holiday) {
-                if ($holidaySummary['destination'] === $holiday['destination'] && !in_array($holiday['title'], $holidaySummary['titles'], true)) {
-                    $holidaySummary['titles'][] = $holiday['title'];
+                if ($holidaySummary['destination'] === $holiday['destination'] && !in_array('"' . $holiday['title'] . '"', $holidaySummary['titles'], true)) {
+                    $holidaySummary['titles'][] = '"' . $holiday['title'] . '"';
                     $holidaySummary['total'] += $holiday['price'] * $holiday['tourists'];
                 }
             }
@@ -66,21 +77,10 @@ function exercises3(array $holidaysList): void
         };
     };
 
-    function super_unique(array $array, mixed $key): array
-    {
-        $temp_array = [];
-        foreach ($array as &$element) {
-            if (!isset($temp_array[$element[$key]]))
-                $temp_array[$element[$key]] = &$element;
-        }
-        $array = array_values($temp_array);
-        return $array;
-    }
-
     $allHolidays = super_unique($allHolidays, 'destination');
 
     foreach ($allHolidays as $key => $holidays) {
-        echo 'Destination ' . $holidays['destination'] . PHP_EOL;
+        echo 'Destination ' . '"' . $holidays['destination'] . '"' . PHP_EOL;
         echo 'Titles: ' . $holidays['titles'] . PHP_EOL;
         echo 'Total: ' . $holidays['total'] . PHP_EOL;
 

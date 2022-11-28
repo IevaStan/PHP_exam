@@ -1,11 +1,11 @@
-Destination Paris
-Titles: Romantic Paris, Hidden Paris
+Destination "Paris"
+Titles: "Romantic Paris", "Hidden Paris"
 Total: 99500
 ************
-Destination New York
-Titles: Amazing New York
+Destination "New York"
+Titles: "Amazing New York"
 Total: 56679
 ************
-Destination Sydey
-Titles: Spectacular Sydey
+Destination "Sydey"
+Titles: "Spectacular Sydey"
 Total: 37170
